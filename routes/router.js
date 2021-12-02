@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router()
-var users = require('../controller/users');
+let express = require('express');
+let router = express.Router()
+let users = require('../controller/users');
+let account = require('../controller/users');
 
 router.post('/user/register', users.register);
 router.post('/user/update', users.update);
