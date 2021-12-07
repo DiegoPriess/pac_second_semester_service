@@ -12,7 +12,7 @@ let connection = mysql.createConnection({
 
   connection.connect((error) => {
     if (error) {
-      console.log("Connection faild")
+      console.log("Connection failed")
       exit()
     }
     console.log("Connection successful")
