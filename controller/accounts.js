@@ -106,6 +106,22 @@ accounts.getByStatus = async function (req, res) {
   }
 }
 
+accounts.getById = async function (req, res) {
+  try {
+    let queryGetUserId = `SELECT id FROM users WHERE email = '${req.params.email}' AND password = '${req.params.password}'`;
+    let isAuthenticated = await db_connect.query(queryGetUserId);
 
+    var querySelectAccountData = `SELECT * FROM accounts WHERE id_users = '${isAuthenticated[0].id}' AND id = '${req.params.id}'`;
+    var doAccountSelect = await db_connect.query(querySelectAccountData);
+    res.send({
+      status: "success",
+      result: doAccountSelect
+    });
+  } catch (error) {
+    res.send({
+      error: error
+    });
+  }
+}
 
 module.exports = accounts;

@@ -14,6 +14,7 @@ router.post('/account/changeStatus', accounts.changeStatus)
 router.get('/account/delete/:id', accounts.delete);
 router.get('/account/getByType/:type/:email/:password', accounts.getByType);
 router.get('/account/getByStatus/:status/:email/:password', accounts.getByStatus);
+router.get('/account/getById/:id/:email/:password', accounts.getByStatus);
 
 module.exports = router;
 

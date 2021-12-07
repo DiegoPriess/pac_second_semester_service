@@ -10,12 +10,12 @@ let connection = mysql.createConnection({
   })
 
 
-  connection.connect((erro) => {
-    if (erro) {
-      console.log("Conexão com o SGBD MySQL NÃO EFETUADA")
+  connection.connect((error) => {
+    if (error) {
+      console.log("Connection faild")
       exit()
     }
-    console.log("Conectado ao SGBD MySQL")
+    console.log("Connection successful")
   })
 
 connection.query = util.promisify(connection.query);
