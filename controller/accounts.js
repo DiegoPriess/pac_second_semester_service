@@ -111,7 +111,7 @@ accounts.getById = async function (req, res) {
     let queryGetUserId = `SELECT id FROM users WHERE email = '${req.params.email}' AND password = '${req.params.password}'`;
     let isAuthenticated = await db_connect.query(queryGetUserId);
 
-    var querySelectAccountData = `SELECT * FROM accounts WHERE id_users = '${isAuthenticated[0].id}' AND id = '${req.params.id}'`;
+    var querySelectAccountData = `SELECT * FROM accounts WHERE id = '${req.params.id}' AND id_users = '${isAuthenticated[0].id}'`;
     var doAccountSelect = await db_connect.query(querySelectAccountData);
     res.send({
       status: "success",
