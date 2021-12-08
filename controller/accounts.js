@@ -9,9 +9,9 @@ accounts.register = async function (req, res) {
     let queryGetUserId = `SELECT id FROM users WHERE email = '${data.currentUser.email}' AND password = '${data.currentUser.password}'`;
     let user = await db_connect.query(queryGetUserId);
 
-    let query = `INSERT INTO accounts (id, description, month, year, price, type, status, id_users) VALUES(NULL, '${data.description}', '${data.month}', '${data.year}', '${data.price}', '${data.type}', '${data.status}', '${user[0].id}')`;
+    let query = `INSERT INTO accounts (id, description, date, price, type, status, id_users) VALUES (NULL, '${data.description}', '${data.date}', '${data.price}', '${data.type}', '${data.status}', '${user[0].id}')`;
     let registerAccount = await db_connect.query(query);
-
+  
     res.send({
       status: 'success',
       result: registerAccount
@@ -41,7 +41,11 @@ accounts.delete = async function (req, res) {
 accounts.update = async function (req, res) {
   try {
     var data = req.body;
-    var queryUpdateAccountData = `UPDATE accounts SET description = '${data.description}', month = '${data.month}', year = '${data.year}', price = '${data.price}', type = '${data.type}', status = '${data.status}' WHERE id = '${data.id_account}'`;
+
+    let queryGetUserId = `SELECT id FROM users WHERE email = '${data.currentUser.email}' AND password = '${data.currentUser.password}'`;
+    let user = await db_connect.query(queryGetUserId);
+
+    var queryUpdateAccountData = `UPDATE accounts SET description = '${data.description}', date = '${data.date}', price = '${data.price}', type = '${data.type}', status = '${data.status}' WHERE id = '${data.id_account}' and id_users = '${user[0].id}'`;
     var updateAccountData = await db_connect.query(queryUpdateAccountData);
     res.send({
       status: "success",
