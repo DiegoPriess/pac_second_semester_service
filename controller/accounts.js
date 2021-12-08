@@ -128,4 +128,22 @@ accounts.getById = async function (req, res) {
   }
 }
 
+accounts.search = async function (req, res) {
+  try {
+    let queryGetUserId = `SELECT id FROM users WHERE email = '${req.params.email}' AND password = '${req.params.password}'`;
+    let isAuthenticated = await db_connect.query(queryGetUserId);
+
+    var querySelectAccountsData = `SELECT * FROM accounts WHERE description LIKE '%${req.params.searchContent}%' AND id_users = '${isAuthenticated[0].id}'`;
+    var doAccountSelect = await db_connect.query(querySelectAccountsData);
+    res.send({
+      status: "success",
+      result: doAccountSelect
+    });
+  } catch (error) {
+    res.send({
+      error: error
+    });
+  }
+}
+
 module.exports = accounts;
