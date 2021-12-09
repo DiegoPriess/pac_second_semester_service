@@ -30,6 +30,22 @@ users.register = async function (req, res) {
   }
 }
 
+users.changePassword = async function (req, res) {
+  try {
+    var data = req.body;
+    var query = `UPDATE users SET password = '${data.newPassword}' WHERE email = '${data.email}' AND password = '${data.currentPassword}'`;
+    var changePassword = await db_connect.query(query);
+    res.send({
+      status: 'success',
+      result: changePassword
+    });
+  } catch (error) {
+    res.send({
+      error: error
+    });
+  }
+}
+
 users.delete = async function (req, res) {
   try {
     var query = `DELETE FROM users WHERE email = '${req.params.email}' AND password = '${req.params.password}'`;

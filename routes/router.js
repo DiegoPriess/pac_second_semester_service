@@ -5,6 +5,7 @@ let accounts = require('../controller/accounts');
 
 router.post('/user/register', users.register);
 router.post('/user/update', users.update);
+router.post('/user/changePassword', users.changePassword);
 router.get('/user/authentication/:email/:password', users.authentication);
 router.get('/user/delete/:email/:password', users.delete);
 
